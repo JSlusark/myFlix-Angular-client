@@ -18,7 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UserLoginFormComponent implements OnInit {
 
-  @Input() loginData = { Username: '', Password: '' };
+  @Input() loginData = { username: '', password: '' };
 
   constructor(
     public fetchApiData: FetchApiDataService,
