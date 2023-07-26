@@ -8,6 +8,7 @@ const apiUrl = 'https://shrouded-ocean-05047.herokuapp.com/';
 @Injectable({
   providedIn: 'root'
 })
+
 export class FetchApiDataService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
@@ -17,6 +18,7 @@ export class FetchApiDataService {
   // Api call for the user registration endpoint
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
+
     return this.http.post(apiUrl + 'users', userDetails).pipe(
       catchError(this.handleError)
     );
@@ -138,7 +140,7 @@ export class FetchApiDataService {
 
   isFavoriteMovie(movieId: string): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.FavoriteMovies.indexOf(movieId) >= 0;
+    return user.FavoriteMovies.indexOf(movieId) >= -1;
   }
 
   // Api call for the edit user endpoint
