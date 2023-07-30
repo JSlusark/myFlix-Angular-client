@@ -1,3 +1,4 @@
+//user-profile-component.ts
 import { Component, OnInit, Input } from '@angular/core';
 
 // // You'll use this import to close the dialog on success
@@ -24,7 +25,7 @@ export class UserProfileComponent implements OnInit {
   user: any = {};
   favoriteMovies: any[] = [];
 
-  @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' };
+  @Input() userData = { username: '', password: '', email: '', birthday: '' };
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -46,13 +47,13 @@ export class UserProfileComponent implements OnInit {
  */
   getUser(): void {
     this.user = this.fetchApiData.getOneUser();
-    this.userData.Username = this.user.Username;
-    this.userData.Email = this.user.Email;
-    // this.user.Birthday comes in as ISOString format, like so: "2011-10-05T14:48:00.000Z"
-    this.userData.Birthday = formatDate(this.user.Birthday, 'yyyy-MM-dd', 'en-US', 'UTC+0');
+    this.userData.username = this.user.username;
+    this.userData.email = this.user.email;
+    // this.user.birthday comes in as ISOString format, like so: "2011-10-05T14:48:00.000Z"
+    this.userData.birthday = formatDate(this.user.birthday, 'yyyy-MM-dd', 'en-US', 'UTC+0');
 
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
-      this.favoriteMovies = resp.filter((m: { _id: any; }) => this.user.FavoriteMovies.indexOf(m._id) >= 0);
+      this.favoriteMovies = resp.filter((m: { _id: any; }) => this.user.favoriteMovies.indexOf(m._id) >= 0);
     });
   }
 /**
@@ -85,17 +86,18 @@ export class UserProfileComponent implements OnInit {
  * @example deleteUser()
  * 
  */
-  deleteUser(): void {
-    this.fetchApiData.deleteUser().subscribe((result) => {
-      localStorage.clear();
-      this.router.navigate(['welcome']);
-      this.snackBar.open('User successfully deleted', 'OK', {
-        duration: 2000
-      });
-    }, (result) => {
-      this.snackBar.open(result, 'OK', {
-        duration: 2000
-      });
+deleteUser(): void {
+  this.fetchApiData.deleteUser().subscribe(() => {
+    localStorage.clear();
+    this.router.navigate(['welcome']);
+    this.snackBar.open('User successfully deleted', 'OK', {
+      duration: 2000
     });
-  }
+  }, (error) => {
+    // Handle the error in case of unsuccessful deletion
+    this.snackBar.open('Error deleting user: ' + error, 'OK', {
+      duration: 2000
+    });
+  });
+}
 }

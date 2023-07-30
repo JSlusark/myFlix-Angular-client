@@ -126,8 +126,10 @@ export class FetchApiDataService {
 
 
   addOrRemoveFavoriteMovie(movieId: string): Observable<any> {
+    
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
+    console.log(user)
     // Check if favoriteMovies array exists in user object and initialize it if not present
     if (!user.favoriteMovies) {
       user.favoriteMovies = [];
@@ -184,6 +186,7 @@ export class FetchApiDataService {
   editUser(updatedUser: any): Observable<any> {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
+    console.log({ updatedUser });
     return this.http.put(apiUrl + 'users/' + user.username, updatedUser, {
       headers: new HttpHeaders(
         {
@@ -199,7 +202,7 @@ export class FetchApiDataService {
   deleteUser(): Observable<any> {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
-    return this.http.delete(apiUrl + 'users/' + user._id, {
+    return this.http.delete(apiUrl + 'users/' + user.username, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
@@ -232,8 +235,8 @@ export class FetchApiDataService {
     }
     else {
       console.error(
-        `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`);
+        `Error Status code ${error.status}`,
+        error.error);
     }
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
