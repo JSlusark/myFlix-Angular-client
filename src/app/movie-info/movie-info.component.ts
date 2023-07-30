@@ -25,8 +25,12 @@ export class MovieInfoComponent implements OnInit {
       title: string;
       content: string;
       image: string;
+      directorName:string;
+      directorBio:string;
+      genreName: string;
+    genreDescription: string
     }
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {console.log(this.data) }
 }

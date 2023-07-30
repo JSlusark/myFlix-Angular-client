@@ -2,8 +2,42 @@
   <mat-dialog-actions>
     <button mat-button [mat-dialog-close]>X</button>
   </mat-dialog-actions>
-  <h2 mat-dialog-title>{{ data.title }}</h2>
-  <img src="{{ data.image }}" alt="{{ data.title }}" width="100px" />
+  <h1 mat-dialog-title style="text-align: center; font-size: 30px">
+    {{ data.title }}
+  </h1>
+  <img
+    src="{{ data.image }}"
+    alt="{{ data.title }}"
+    width="200px"
+    style="display: block; margin: 20px auto"
+  />
 
   <mat-dialog-content>{{ data.content }}</mat-dialog-content>
+  <div
+    style="
+      display: inline-flex;
+
+      width: 100%;
+      margin: auto;
+    "
+  >
+    <div style="margin: 0 20%">
+      <h4 style="font-weight: bold">Director: {{ data.directorName }}</h4>
+      <p
+        matTooltip="{{ data.directorBio }}"
+        style="color: blue; font-style: italic"
+      >
+        Hayao Miyazaki
+      </p>
+    </div>
+    <div>
+      <h4 style="font-weight: bold">Genre:{{ data.genreName }}</h4>
+      <p
+        matTooltip="{{ data.genreDescription }}"
+        style="color: blue; font-style: italic"
+      >
+        Animation
+      </p>
+    </div>
+  </div>
 </div>

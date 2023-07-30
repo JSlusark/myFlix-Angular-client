@@ -1,109 +1,64 @@
-<!-- <div style="display: flex">
-  <mat-card *ngFor="let movie of movies" style="flex: 1 1 auto">
-    <mat-card-header>
-      <mat-card-title>{{ movie.title }}</mat-card-title>
-      <mat-card-subtitle
-        >Directed by: {{ movie.director.name }}</mat-card-subtitle
-      >
-    </mat-card-header>
-    <img src="{{ movie.imageurl }}" alt="{{ movie.title }}" width="100px" />
-    <mat-card-actions>
-      <button mat-button color="primary">Genre</button>
-      <button mat-button color="primary">Director</button>
-      <button mat-button color="primary">Synopsis</button>
-      <mat-icon>favorite_border</mat-icon>
-    </mat-card-actions>
-  </mat-card>
-</div> -->
-
-<!-- 
+<!-- src/app/movie-card/movie-card.component.ts -->
 <app-top-bar></app-top-bar>
-<div style="display: flex; width: 100%; overflow: auto">
-  <mat-card *ngFor="let movie of movies" style="flex: 1 1 auto; margin: 1rem">
-    <mat-card-header>
-      <mat-card-title>{{ movie.title }}</mat-card-title>
-      <mat-card-subtitle
-        >Directed by: {{ movie.director.name }}</mat-card-subtitle
-      >
-    </mat-card-header>
-    <img src="{{ movie.imageurl }}" alt="{{ movie.title }}" />
-    <mat-card-actions>
+<div style="display: flex; overflow-x: auto; margin: 10px 0">
+  <mat-card
+    *ngFor="let movie of movies"
+    style="
+      flex: 1 1 auto;
+      background-color: rgb(200, 200, 200);
+      padding: 0px 0px;
+      margin: 10px;
+    "
+  >
+    <img src="{{ movie.imageurl }}" alt="{{ movie.title }}" height="570px" />
+    <mat-card-actions style="width: 100%">
       <button
-        mat-icon-button
-        (click)="openGenre(movie.genre.Name, movie.genre.description)"
+        mat-button
         color="primary"
-        matTooltip="Genre"
-      >
-        <mat-icon>info</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        (click)="openDirector(movie.director.name, movie.director.bio)"
+        (click)="
+          openSynopsis(
+            movie.title,
+            movie.description,
+            movie.imageurl,
+            movie.director.name,
+            movie.director.bio,
+            movie.genre.name,
+            movie.genre.description
+          )
+        "
         color="primary"
-        matTooltip="Director"
+        style="width: 90%"
       >
-        <mat-icon>person</mat-icon>
+        Details
       </button>
+
       <button
+        style="width: 10%"
         mat-icon-button
-        (click)="openSynopsis(movie.description)"
         color="primary"
-        matTooltip="Synopsis"
+        (click)="addOrRemoveFavorite(movie._id)"
       >
-        <mat-icon>description</mat-icon>
+        <mat-icon>favorite</mat-icon>
       </button>
-      <button
-        *ngIf="!isFavorite(movie._id)"
+
+      <!-- <button
+        style="width: 10%"
         mat-icon-button
         (click)="addFavorite(movie._id)"
         color="primary"
         matTooltip="Add to favorites"
       >
-        <mat-icon>favorite_border</mat-icon>
-      </button>
-      <button
-        *ngIf="isFavorite(movie._id)"
-        mat-icon-button
-        (click)="removeFavorite(movie._id)"
-        color="primary"
-        matTooltip="Remove from favorites"
-      >
         <mat-icon>favorite</mat-icon>
       </button>
-    </mat-card-actions>
-  </mat-card>
-</div> -->
-
-<app-top-bar></app-top-bar>
-<div style="display: flex">
-  <mat-card *ngFor="let movie of movies" style="flex: 1 1 auto">
-    <mat-card-header>
-      <mat-card-title>{{ movie.title }}</mat-card-title>
-      <mat-card-subtitle
-        (click)="openDirector(movie.director.name, movie.director.bio)"
-        color="primary"
-        matTooltip="{{ movie.director.bio }}"
-        >Directed by: {{ movie.director.name }}</mat-card-subtitle
-      >
-    </mat-card-header>
-    <img src="{{ movie.imageurl }}" alt="{{ movie.title }}" width="400px" />
-    <mat-card-actions>
       <button
-        mat-button
-        color="primary"
-        (click)="openSynopsis(movie.title, movie.description, movie.imageurl)"
-        color="primary"
-      >
-        Details
-      </button>
-      <button
+        style="width: 10%"
         mat-icon-button
         (click)="removeFavorite(movie._id)"
         color="primary"
         matTooltip="Remove from favorites"
       >
         <mat-icon>favorite_border</mat-icon>
-      </button>
+      </button> -->
     </mat-card-actions>
   </mat-card>
 </div>

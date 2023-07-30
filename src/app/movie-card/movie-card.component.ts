@@ -7,7 +7,6 @@ import { MovieInfoComponent } from '../movie-info/movie-info.component';
 // This import is used to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
@@ -15,41 +14,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class MovieCardComponent {
   movies: any[] = [];
-  constructor(public fetchApiData: FetchApiDataService,
+  constructor(
+    public fetchApiData: FetchApiDataService,
     public snackBar: MatSnackBar,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.getMovies();
   }
 
-getMovies(): void {
-  this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+  getMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
       console.log(this.movies);
-      return this.movies;
     });
   }
-  /**
- * 
- * @param name 
- * @param description
- * @param image
- * @returns void
- * @memberof MovieCardComponent
- * @see MovieInfoComponent
- * @example openGenre()
- * @example openDirector() 
- */
-  // openGenre(name: string, description: string): void {
-  //   this.dialog.open(MovieInfoComponent, {
-  //     data: {
-  //       title: name,
-  //       content: description
-  //     },
-  //     //width: '280px'
-  //   });
-  // }
 
   openDirector(name: string, bio: string): void {
     this.dialog.open(MovieInfoComponent, {
@@ -61,42 +41,37 @@ getMovies(): void {
     });
   }
 
-  openSynopsis(title: string, description: string, image: string): void {
+  openSynopsis(
+    title: string,
+    description: string,
+    image: string,
+    directorName: string,
+    directorBio: string,
+    genreName: string,
+    genreDescription: string
+  ): void {
     this.dialog.open(MovieInfoComponent, {
       data: {
         title: title,
         content: description,
-        image: image
+        image: image,
+        directorName: directorName,
+        directorBio: directorBio,
+        genreName: genreName,
+        genreDescription: genreDescription
       },
-      width: '500px'
+      width: '700px'
     });
   }
 
-  addFavorite(id: string): void {
-    this.fetchApiData.addFavoriteMovie(id).subscribe((result) => {
 
-      this.snackBar.open('Movie added to favorites.', 'OK', {
-        duration: 2000
-      });
-    });
+  addOrRemoveFavorite(id: string): void {
+    this.fetchApiData.addOrRemoveFavoriteMovie(id).subscribe()
   }
-/**
- * 
- * @param id 
- * @memberof MovieCardComponent
- * @see FetchApiDataService.isFavoriteMovie()
- * @example isFavorite()
- * @example removeFavorite()
- */
+
   isFavorite(id: string): boolean {
     return this.fetchApiData.isFavoriteMovie(id);
   }
 
-  removeFavorite(id: string): void {
-    this.fetchApiData.deleteFavoriteMovie(id).subscribe((result) => {
-      this.snackBar.open('Movie removed from favorites.', 'OK', {
-        duration: 2000
-      });
-    });
-  }
+
 }

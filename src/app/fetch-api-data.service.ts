@@ -1,7 +1,11 @@
+//fetch api data service file
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+// This import is used to display notifications back to the user
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 //Declaring the api url that will provide data for the client app
 const apiUrl = 'https://shrouded-ocean-05047.herokuapp.com/';
@@ -105,7 +109,7 @@ export class FetchApiDataService {
   }
 
   // Api call for the get favourite movies for a user endpoint
-  getFavoriteMovies(): Observable<any> {
+  getfavoriteMovies(): Observable<any> {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/' + user.username, {
@@ -115,33 +119,66 @@ export class FetchApiDataService {
         })
     }).pipe(
       map(this.extractResponseData),
-      map((data) => data.FavoriteMovies),
+      map((data) => data.favoriteMovies),
       catchError(this.handleError)
     );
   }
 
-  // Api call for the add a movie to favourite Movies endpoint
-  addFavoriteMovie(movieId: string): Observable<any> {
+
+  addOrRemoveFavoriteMovie(movieId: string): Observable<any> {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
-    user.FavoriteMovies.push(movieId);
-    localStorage.setItem('user', JSON.stringify(user));
-    return this.http.post(apiUrl + 'users/' + user.username + '/movies/' + movieId, {}, {
-      headers: new HttpHeaders(
-        {
+    // Check if favoriteMovies array exists in user object and initialize it if not present
+    if (!user.favoriteMovies) {
+      user.favoriteMovies = [];
+    }
+  
+    // Check if movieId is already in the favoriteMovies array
+    const index = user.favoriteMovies.indexOf(movieId);
+    if (index !== -1) {
+      // If movieId is already present, remove it from the list
+      user.favoriteMovies.splice(index, 1);
+      localStorage.setItem('user', JSON.stringify(user));
+      alert("This movie was removed from your favorite list.");
+      console.log("MovieId removed from this user's favorite list. Favoritelist data:");
+      console.log(user.favoriteMovies)
+    
+      return this.http.delete(apiUrl + 'users/' + user.username + '/movies/' + movieId, {
+        headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
         }),
-      responseType: "text"
-    }).pipe(
-      map(this.extractResponseData),
-      catchError(this.handleError)
-    );
+        responseType: "text"
+      }).pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError)
+      );
+    } else {
+      // If movieId is not present, add it to the list
+      user.favoriteMovies.push(movieId);
+      localStorage.setItem('user', JSON.stringify(user));
+      console.log("MovieId added to this user's favorite list.");
+      alert("This movie was added to user's favorite list. Favoritelist data:");
+      console.log(user.favoriteMovies)
+      console.log(user);
+      return this.http.post(apiUrl + 'users/' + user.username + '/movies/' + movieId, {}, {
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + token,
+        }),
+        responseType: "text"
+      }).pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError)
+      );
+    }
   }
+
 
   isFavoriteMovie(movieId: string): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.FavoriteMovies.indexOf(movieId) >= -1;
+    return user.favoriteMovies.indexOf(movieId) >= -1;
   }
+
+
 
   // Api call for the edit user endpoint
   editUser(updatedUser: any): Observable<any> {
@@ -172,28 +209,13 @@ export class FetchApiDataService {
     );
   }
 
-  // Api call for the elete a movie from the favorite movies endpoint
-  deleteFavoriteMovie(movieId: string): Observable<any> {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const token = localStorage.getItem('token');
 
-    const index = user.FavoriteMovies.indexOf(movieId);
-    console.log(index);
-    if (index > -1) { // only splice array when item is found
-      user.FavoriteMovies.splice(index, 1); // 2nd parameter means remove one item only
-    }
-    localStorage.setItem('user', JSON.stringify(user));
-    return this.http.delete(apiUrl + 'users/' + user.username + '/movies/' + movieId, {
-      headers: new HttpHeaders(
-        {
-          Authorization: 'Bearer ' + token,
-        }),
-      responseType: "text"
-    }).pipe(
-      map(this.extractResponseData),
-      catchError(this.handleError)
-    );
-  }
+
+
+
+
+
+
 
   // Non-typed response extraction
   private extractResponseData(res: any): any {
