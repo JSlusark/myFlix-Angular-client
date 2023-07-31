@@ -15,8 +15,17 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
  * @class MovieInfoComponent
  * @implements {OnInit}
  * @example <app-movie-info></app-movie-info>
+ * @param {Object} data - The data to be displayed in the movie info dialog.
+ * @param {string} data.title - The title of the movie.
+ * @param {string} data.content - The description/synopsis of the movie.
+ * @param {string} data.image - The URL of the movie poster image.
+ * @param {string} data.directorName - The name of the movie's director.
+ * @param {string} data.directorBio - The biography of the movie's director.
+ * @param {string} data.genreName - The name of the movie's genre.
+ * @param {string} data.genreDescription - The description of the movie's genre.
  * @see MAT_DIALOG_DATA
  */
+
 export class MovieInfoComponent implements OnInit {
 
   constructor(
@@ -32,5 +41,5 @@ export class MovieInfoComponent implements OnInit {
     }
   ) { }
 
-  ngOnInit(): void {console.log(this.data) }
+  ngOnInit(): void {}
 }

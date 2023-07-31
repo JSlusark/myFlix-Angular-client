@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
   * @class TopBarComponent
   * @implements {OnInit}
   * @example <app-top-bar></app-top-bar>
+  * @param {Router} router - The Angular Router service used for navigation.
   * @see Router
   */
 export class TopBarComponent {

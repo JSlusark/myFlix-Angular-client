@@ -1,4 +1,8 @@
 // src/app/movie-card/movie-card.component.ts
+/**
+ * Movie Card Component.
+ * This component displays movie cards and handles interactions with movies.
+ */
 import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service'
 import { MatDialog } from '@angular/material/dialog';
@@ -24,6 +28,13 @@ export class MovieCardComponent {
     this.getMovies();
   }
 
+  /**
+ * This method will get all movies from the database, which are then displayed on the movie card component.
+ * @param void
+ * @returns movies array
+ * @memberof MovieCardComponent
+ * @see FetchApiDataService.getAllMovies()
+ */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -31,15 +42,19 @@ export class MovieCardComponent {
     });
   }
 
-  openDirector(name: string, bio: string): void {
-    this.dialog.open(MovieInfoComponent, {
-      data: {
-        title: name,
-        content: bio
-      },
-      width: '1000px'
-    });
-  }
+  /**
+   * Opens the movie information dialog with detailed movie information.
+   * @param title - The title of the movie.
+   * @param description - The description/synopsis of the movie.
+   * @param image - The URL of the movie poster image.
+   * @param directorName - The name of the movie's director.
+   * @param directorBio - The biography of the movie's director.
+   * @param genreName - The name of the movie's genre.
+   * @param genreDescription - The description of the movie's genre.
+   * @memberof MovieCardComponent
+   * @see MovieInfoComponent
+   * @example openSynopsis() 
+   */
 
   openSynopsis(
     title: string,
@@ -64,11 +79,19 @@ export class MovieCardComponent {
     });
   }
 
-
+  /**
+   * Adds or removes a movie from the user's favorites list.
+   * @param id - The ID of the movie to be added or removed from favorites.
+   */
   addOrRemoveFavorite(id: string): void {
     this.fetchApiData.addOrRemoveFavoriteMovie(id).subscribe()
   }
 
+  /**
+   * Checks if a movie with the specified ID is in the user's favorites list.
+   * @param id - The ID of the movie to check for in favorites.
+   * @returns True if the movie is in favorites, false otherwise.
+   */
   isFavorite(id: string): boolean {
     return this.fetchApiData.isFavoriteMovie(id);
   }

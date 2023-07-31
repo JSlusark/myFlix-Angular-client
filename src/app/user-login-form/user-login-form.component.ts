@@ -1,3 +1,7 @@
+/**
+ *  User Login Form Component.
+ * This component renders the user login form and handles user login functionality.
+ */
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,9 +13,6 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 
 // This import is used to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-
-
 
 @Component({
   selector: 'app-user-login-form',

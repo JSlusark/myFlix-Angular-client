@@ -1,4 +1,10 @@
 //user-profile-component.ts
+
+/**
+ * User Profile Component.
+ * This component renders the user profile information and handles user profile functionality.
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 
 // // You'll use this import to close the dialog on success
@@ -37,6 +43,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
   }
+  
 /**
  * This method will get the user data from the API
  * @param void
@@ -56,6 +63,7 @@ export class UserProfileComponent implements OnInit {
       this.favoriteMovies = resp.filter((m: { _id: any; }) => this.user.favoriteMovies.indexOf(m._id) >= 0);
     });
   }
+
 /**
  * This method will send the form inputs to the backend
  * @param void
@@ -77,6 +85,7 @@ export class UserProfileComponent implements OnInit {
       });
     });
   }
+
 /**
  * This method will send the user object to the backend to be deleted
  * @param void
