@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
   */
 export class TopBarComponent {
 
+  
   constructor(
     private router: Router
   ) { }
