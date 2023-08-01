@@ -1,0 +1,11 @@
+.main-page {
+  display: block;
+  margin: 50% auto;
+  width: 300px}
+
+  .welcome-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* adds space between the buttons */
+  }
