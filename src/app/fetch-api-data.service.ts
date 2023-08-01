@@ -167,7 +167,7 @@ export class FetchApiDataService {
 
   isFavoriteMovie(movieId: string): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.favoriteMovies.indexOf(movieId) >= -1;
+    return user.favoriteMovies.indexOf(movieId) > -1;
   }
 
 

@@ -37,8 +37,18 @@
         mat-icon-button
         color="primary"
         (click)="addOrRemoveFavorite(movie._id)"
+        *ngIf="isFavorite(movie._id)"
       >
         <mat-icon>favorite</mat-icon>
+      </button>
+      <button
+        style="width: 10%"
+        mat-icon-button
+        color="primary"
+        (click)="addOrRemoveFavorite(movie._id)"
+        *ngIf="!isFavorite(movie._id)"
+      >
+        <mat-icon>favorite_outline</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>
