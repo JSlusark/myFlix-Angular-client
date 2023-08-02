@@ -1,27 +1,26 @@
-# MyFlixAngularClient
+# **My Movie List Client Project (Angular)** 
+Welcome to the My Movie List client project! This is a single-page, responsive movie application that provides information about different movies, directors, and genres.
+Users can sign up, browse through movie details, update their personal information, and create a list of their favorite movies. You can access and use the website [here](https://birdieber.github.io/myFlix-Angular-client/welcome).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
+## **Technologies Used**
+The My Movie List client application is built using the following technologies:
 
-## Development server
+- Angular
+- Node.js
+- Angular Material (for responsive UI design)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
+The My Movie List client project is designed to interact with the Movie Flix API. The API supports the following features:
 
-## Code scaffolding
+- Get All Movies
+- Get Single Movie by Title
+- Get Genre by Name
+- Get Director by Name
+- User Registration
+- Update User Info
+- Add Movie to Favorites
+- Remove Movie from Favorites
+- User Deregistration
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Documentation
+For detailed information about the API endpoints and how they work, please refer to the ["My Movie List" API documentation page](https://github.com/birdieber/Movie-API/tree/main)https://github.com/birdieber/Movie-API/tree/main.
